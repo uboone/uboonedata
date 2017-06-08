@@ -2,7 +2,7 @@
 
 # The *parent* line must the first non-commented line and defines this product and version
 # The version should be of the form vxx_yy_zz (e.g. v01_02_03)
-parent uboonedata v01_17_00
+parent uboonedata v01_18_00
 
 # The no_fq_dir keyword indicates that this product is NULL flavored
 no_fq_dir
@@ -35,6 +35,7 @@ fcldir  -
 table_fragment_begin
     pathPrepend(FW_SEARCH_PATH, ${UPS_PROD_DIR}/Response )
     pathPrepend(FW_SEARCH_PATH, ${UPS_PROD_DIR}/Calibration )
+    pathPrepend(FW_SEARCH_PATH, ${UPS_PROD_DIR}/PandoraData )
     pathPrepend(FW_SEARCH_PATH, ${UPS_PROD_DIR} )
 table_fragment_end
 

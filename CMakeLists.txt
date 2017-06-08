@@ -26,6 +26,7 @@ find_ups_product(cetbuildtools v4_14_01)
 
 # source code
 add_subdirectory(Calibration)
+add_subdirectory(PandoraData)
 add_subdirectory(Response)
 add_subdirectory(SpaceCharge)
 add_subdirectory(beamData)
