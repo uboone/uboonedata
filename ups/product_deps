@@ -44,7 +44,7 @@ table_fragment_end
 product          version
 uboone_photon_propagation	v01_00_00
 
-cetbuildtools			v5_06_07	-	aonly_for_build
+cetbuildtools			v5_06_07	-	only_for_build
 end_product_list
 
 # We now define allowed qualifiers and the corresponding qualifiers for the depdencies.
