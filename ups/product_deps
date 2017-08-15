@@ -29,22 +29,17 @@ incdir  -
 libdir  -
 bindir  -
 fcldir  -
-
-# table fragment to set FW_SEARCH_PATH needed 
-# to find data files:
-table_fragment_begin
-    pathPrepend(FW_SEARCH_PATH, ${UPS_PROD_DIR}/Response )
-    pathPrepend(FW_SEARCH_PATH, ${UPS_PROD_DIR}/Calibration )
-    pathPrepend(FW_SEARCH_PATH, ${UPS_PROD_DIR}/PandoraData )
-    pathPrepend(FW_SEARCH_PATH, ${UPS_PROD_DIR} )
-table_fragment_end
+set_fwdir  product_dir  .
+set_fwdir  product_dir  Response
+set_fwdir  product_dir  Calibration
+set_fwdir  product_dir  PandoraData
 
 # Add the dependent product and version
 
 product          version
 uboone_photon_propagation	v01_00_00
 
-cetbuildtools			v5_09_01	-	only_for_build
+cetbuildtools			v5_14_00	-	only_for_build
 end_product_list
 
 # We now define allowed qualifiers and the corresponding qualifiers for the depdencies.
