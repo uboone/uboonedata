@@ -39,7 +39,11 @@ set_fwdir  product_dir  PandoraData
 product          version
 uboone_photon_propagation	v01_00_00
 
+<<<<<<< HEAD
 cetbuildtools			v5_14_00 	-	only_for_build
+=======
+cetbuildtools			v5_06_07	-	only_for_build
+>>>>>>> origin/v01_17_00_br
 end_product_list
 
 # We now define allowed qualifiers and the corresponding qualifiers for the depdencies.
