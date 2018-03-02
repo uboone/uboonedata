@@ -32,6 +32,7 @@ fcldir  -
 set_fwdir  product_dir  .
 set_fwdir  product_dir  Response
 set_fwdir  product_dir  Calibration
+set_fwdir  product_dir  CRT
 set_fwdir  product_dir  PandoraData
 
 # Add the dependent product and version
