@@ -35,6 +35,12 @@ set_fwdir  product_dir  Calibration
 set_fwdir  product_dir  CRT
 set_fwdir  product_dir  PandoraData
 
+# table fragment to set WIRECELL_PATH needed 
+# to find data files:
+table_fragment_begin
+    pathPrepend(WIRECELL_PATH, ${UPS_PROD_DIR}/WireCellData )
+table_fragment_end
+
 # Add the dependent product and version
 
 product          version
