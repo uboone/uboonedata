@@ -38,7 +38,7 @@ set_fwdir  product_dir  PandoraData
 # table fragment to set WIRECELL_PATH needed 
 # to find data files:
 table_fragment_begin
-    pathPrepend(WIRECELL_PATH, ${UPS_PROD_DIR}/WireCellData )
+    pathPrepend(WIRECELL_PATH, ${UPS_PROD_DIR}/WireCellData:${WIRECELL_FQ_DIR}/share/wirecell )
 table_fragment_end
 
 # Add the dependent product and version

@@ -6,3 +6,4 @@ message(STATUS "Data files ${data}")
 
 install(FILES ${data} DESTINATION ${product}/${version}/WireCellData)
 
+add_subdirectory(nfspl1)
