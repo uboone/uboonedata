@@ -3,7 +3,7 @@
 // This file holds some components used by others.
 
 local wc = import "wirecell.jsonnet";
-local par = import "params.jsonnet";
+local par = import "uboone-simparams.jsonnet";
 
 // This holds various info about one anode plane aka APA.  Note:
 // in general multiple anode planes may be in use and

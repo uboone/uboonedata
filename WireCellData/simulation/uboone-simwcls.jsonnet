@@ -5,7 +5,7 @@
 // chndb.jsonnet.
 
 local wc = import "wirecell.jsonnet";
-local par = import "unboone-simparams.jsonnet";
+local par = import "uboone-simparams.jsonnet";
 local gen = import "general.jsonnet";
 
 // This source converts between LArSoft raw::RawDigit and WCT IFrame

@@ -4,7 +4,7 @@
 
 local wc = import "wirecell.jsonnet";
 local handmade = import "chndb-resp.jsonnet";
-local params = import "params.jsonnet";
+local params = import "uboone-simparams.jsonnet";
 local gen = import "general.jsonnet";
 
 {

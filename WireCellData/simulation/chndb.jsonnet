@@ -2,7 +2,7 @@
 
 local wc = import "wirecell.jsonnet";
 
-local par = import "params.jsonnet";
+local par = import "uboone-simparams.jsonnet";
 
 local rms_cuts = import "chndb-rms-cuts.jsonnet";
 local base_data = import "chndb-base.jsonnet";

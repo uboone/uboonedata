@@ -1,7 +1,7 @@
 // This configures the Noise Filtering stage of a job.
 
 local wc = import "wirecell.jsonnet";
-local par = import "params.jsonnet";
+local par = import "uboone-simparams.jsonnet";
 local chndb = import "chndb.jsonnet";
 
 

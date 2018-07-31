@@ -4,7 +4,7 @@
 
 
 local wc = import "wirecell.jsonnet";
-local par = import "params.jsonnet";
+local par = import "uboone-simparams.jsonnet";
 
 
 // Caveat: this import breaks the purity of this file.  Without it, it
@@ -13,7 +13,7 @@ local par = import "params.jsonnet";
 // (a WC/LS integration component) placed just after the SP component.
 // This can probably be cleaned up to break the explicit connection
 // but for now we take the expedient route.  
-local wcls = import "wcls.jsonnet";
+local wcls = import "uboone-simwcls.jsonnet";
 
 
 local hf = import "hf_filters.jsonnet";
