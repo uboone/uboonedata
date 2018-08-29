@@ -281,6 +281,7 @@ local scsaver = {
 
 // not a configurable
 local sink = { type: "DumpFrames" };
+local dsink = { type: "DumpDepos" };
 
 local numpy_saver = {
     data: params.daq {
@@ -307,6 +308,10 @@ local graph_noise = [
     },
     {
         tail: { node: wc.tn(drifter) },
+        head: { node: wc.tn(scsaver) },
+    },
+    {
+        tail: { node: wc.tn(scsaver) },
         head: { node: wc.tn(ductor) },
     },
     {
@@ -346,6 +351,10 @@ local graph_quiet = [
     },
     {
         tail: { node: wc.tn(drifter) },
+        head: { node: wc.tn(scsaver) },
+    },
+    {
+        tail: { node: wc.tn(scsaver) },
         head: { node: wc.tn(ductor) },
     },
     {
@@ -376,4 +385,4 @@ local app = {
 
 // the final configuration sequence of data structures
 
-[random, source] + anodes + noise + signal + [frame_summer, digitizer, sink] + io + [app]
+[random, source] + anodes + noise + signal + [frame_summer, digitizer, sink, dsink] + io + [app]
