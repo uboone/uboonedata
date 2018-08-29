@@ -273,6 +273,12 @@ local saver = {
     }
 };
 
+local scsaver = {
+    type: "wclsSimChannelSaver",
+    data: {
+    }
+};
+
 // not a configurable
 local sink = { type: "DumpFrames" };
 
@@ -288,7 +294,7 @@ local numpy_saver = {
 local numpy_depo_saver = numpy_saver { type: "NumpyDepoSaver" };
 local numpy_frame_saver = numpy_saver { type: "NumpyFrameSaver" };
 
-local io = [saver, numpy_depo_saver, numpy_frame_saver];
+local io = [saver, scsaver, numpy_depo_saver, numpy_frame_saver];
 
 local graph_noise = [
     {
