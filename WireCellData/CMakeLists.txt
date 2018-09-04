@@ -8,3 +8,4 @@ install(FILES ${data} DESTINATION ${product}/${version}/WireCellData)
 
 add_subdirectory(nfspl1)
 add_subdirectory(simulation)
+add_subdirectory(pgrapher)
