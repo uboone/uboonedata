@@ -84,7 +84,6 @@ if [ $git -ne 0 ]; then
   done
 fi
 cd $MRB_SOURCE
-exit
 
 # Check top level jsonnet files in wire-cell-cfg
 
