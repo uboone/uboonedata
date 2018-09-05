@@ -113,20 +113,25 @@ done
 find $MRB_SOURCE/wire-cell-cfg/pgrapher -type f -print | while read file
 do
   relpath=`echo $file | sed "s;$MRB_SOURCE/wire-cell-cfg/;;"`
-  #echo $relpath
-  file2=$MRB_SOURCE/uboonedata/WireCellData/$relpath
-  if [ ! -f $file2 ]; then
-    echo "$file2 does not exist."
-    if [ $update -ne 0 ]; then
-      echo "Copying."
-      cp $file $file2
+  dir1=`dirname $relpath`
+  dir2=`dirname $dir1`
+  base1=`basename $dir1`
+  base2=`basename $dir2`
+  if [ $base2 != experiment -o $base1 = uboone ]; then
+    file2=$MRB_SOURCE/uboonedata/WireCellData/$relpath
+    if [ ! -f $file2 ]; then
+      echo "$file2 does not exist."
+      if [ $update -ne 0 ]; then
+        echo "Copying."
+        cp $file $file2
+      fi
     fi
-  fi
-  if ! diff -q $file $file2; then
-    echo "Files $file and $file2 differ."
-    if [ $update -ne 0 ]; then
-      echo "Copying."
-      cp $file $file2
+    if ! diff -q $file $file2; then
+      echo "Files $file and $file2 differ."
+      if [ $update -ne 0 ]; then
+        echo "Copying."
+        cp $file $file2
+      fi
     fi
   fi
 done
