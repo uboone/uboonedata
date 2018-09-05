@@ -71,6 +71,7 @@ if [ $git -ne 0 ]; then
   for pkg in wire-cell-cfg wire-cell-data
   do
     if [ ! -d $MRB_SOURCE/$pkg/.git ]; then
+      cd $MRB_SOURCE
       echo "Checking out $pkg"
       rm -rf $pkg
       url=https://github.com/WireCell/$pkg
