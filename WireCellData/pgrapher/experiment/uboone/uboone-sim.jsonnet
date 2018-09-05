@@ -35,7 +35,7 @@ local sim_adc_frame_tag = "orig";
 // "name" matches what is used in the FHiCL that loads this file.
 // art_label (producer, e.g. plopper) and art_instance (e.g. bogus) may be needed
 local wcls_input = {
-    depos: wcls.input.depos(name=""),
+    depos: wcls.input.depos(name="", art_label="ionization"),
 };
 
 // Collect all the wc/ls output converters for use below.  Note the
@@ -92,10 +92,6 @@ local sink = sim.frame_sink;
 local graph = g.pipeline([wcls_input.depos,
                           drifter, ductor, miscon, noise, digitizer,
                           wcls_output.sim_digits,
-                          nf,
-                          wcls_output.nf_digits,
-                          sp,
-                          wcls_output.sp_signals,
                           sink]);
 
 

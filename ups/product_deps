@@ -27,7 +27,7 @@ no_fq_dir
 #
 incdir  -
 libdir  -
-bindir  -
+bindir  product_dir bin
 fcldir  -
 set_fwdir  product_dir  .
 set_fwdir  product_dir  Response
