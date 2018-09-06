@@ -21,10 +21,10 @@ local wcls = wcls_maker(params, tools);
 // for dumping numpy array for debugging
 local io = import "pgrapher/common/fileio.jsonnet";
 
-local nf_maker = import "pgrapher/experiment/uboone/nf.jsonnet";
+//local nf_maker = import "pgrapher/experiment/uboone/nf.jsonnet";
 local chndb_maker = import "pgrapher/experiment/uboone/chndb.jsonnet";
 
-local sp_maker = import "pgrapher/experiment/uboone/sp.jsonnet";
+//local sp_maker = import "pgrapher/experiment/uboone/sp.jsonnet";
 
     
 // This tags the output frame of the WCT simulation and is used in a
@@ -49,13 +49,13 @@ local wcls_output = {
     // art::Event but left as floats for the WCT SP.  Note, the tag
     // "raw" is somewhat historical as the output is not equivalent to
     // "raw data".
-    nf_digits: wcls.output.digits(name="nfdigits", tags=["raw"]),
+    //nf_digits: wcls.output.digits(name="nfdigits", tags=["raw"]),
 
     // The output of signal processing.  Note, there are two signal
     // sets each created with its own filter.  The "gauss" one is best
     // for charge reconstruction, the "wiener" is best for S/N
     // separation.  Both are used in downstream WC code.
-    sp_signals: wcls.output.signals(name="spsignals", tags=["gauss"]),
+    //sp_signals: wcls.output.signals(name="spsignals", tags=["gauss"]),
 };
 
 
@@ -81,10 +81,10 @@ local digitizer = sim.digitizer(anode, tag="orig");
 local noise_epoch = "perfect";
 //local noise_epoch = "after";
 local chndb = chndb_maker(params, tools).wct(noise_epoch);
-local nf = nf_maker(params, tools, chndb);
+//local nf = nf_maker(params, tools, chndb);
 
 // signal processing
-local sp = sp_maker(params, tools);
+//local sp = sp_maker(params, tools);
 
 
 local sink = sim.frame_sink;
