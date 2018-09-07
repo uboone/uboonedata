@@ -35,7 +35,7 @@ local sim_adc_frame_tag = "orig";
 // "name" matches what is used in the FHiCL that loads this file.
 // art_label (producer, e.g. plopper) and art_instance (e.g. bogus) may be needed
 local wcls_input = {
-    depos: wcls.input.depos(name=""),
+    depos: wcls.input.depos(name="", art_label="ionization"),
 };
 
 // Collect all the wc/ls output converters for use below.  Note the

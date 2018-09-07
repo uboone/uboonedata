@@ -1,6 +1,6 @@
 # Wire-Cell Data files, required at runtime.
 
-FILE(GLOB data *.bz2 )
+FILE(GLOB data *.bz2 *.jsonnet )
 
 message(STATUS "Data files ${data}")
 

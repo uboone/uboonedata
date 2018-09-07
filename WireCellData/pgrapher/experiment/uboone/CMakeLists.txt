@@ -4,4 +4,4 @@ FILE(GLOB data *.jsonnet *.fcl )
 
 message(STATUS "Data files ${data}")
 
-install(FILES ${data} DESTINATION ${product}/${version}/WireCellData/experiment/uboone)
+install(FILES ${data} DESTINATION ${product}/${version}/WireCellData/pgrapher/experiment/uboone)
