@@ -91,7 +91,7 @@ base {
         // plane and final readout clock assumed to run at the
         // colleciton plane.
         ductor : {
-            nticks: $.daq.nticks + response_nticks,
+            nticks: $.daq.nticks,
 
             // The readout duration.
             readout_time: self.nticks * $.daq.tick,
