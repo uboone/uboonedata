@@ -65,6 +65,8 @@ base {
     },
 
     sim: super.sim {
+
+    	fluctuate: false,   // HBG added by hand.
         
         // For running in LArSoft, the simulation must be in fixed time mode. 
         fixed: true,
