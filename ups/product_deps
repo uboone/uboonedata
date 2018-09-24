@@ -36,6 +36,7 @@ table_fragment_begin
     pathPrepend(FW_SEARCH_PATH, ${UPS_PROD_DIR}/Response )
     pathPrepend(FW_SEARCH_PATH, ${UPS_PROD_DIR}/Calibration )
     pathPrepend(FW_SEARCH_PATH, ${UPS_PROD_DIR}/CRT )
+    pathPrepend(FW_SEARCH_PATH, ${UPS_PROD_DIR}/ProtonID )
     pathPrepend(FW_SEARCH_PATH, ${UPS_PROD_DIR} )
 table_fragment_end
 
