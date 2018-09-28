@@ -20,7 +20,7 @@
 # Help function.
 
 function dohelp {
-  echo "Usage: check_wirecell_data.sh [-h|--help] [-u] [-g]"
+  echo "Usage: check_wirecell_data.sh [-h|--help] [-u] [-g] [-d]"
 }
 
 # Parse arguments.
