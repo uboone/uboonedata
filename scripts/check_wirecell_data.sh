@@ -84,6 +84,7 @@ if [ $git -ne 0 ]; then
       rm -rf $pkg
       url=https://github.com/WireCell/$pkg
       git clone $url
+      cd $pkg
       git checkout 0.8.x
     else
       echo "Git pulling $pkg"
