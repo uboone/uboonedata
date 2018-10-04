@@ -5,9 +5,9 @@ local base = import "pgrapher/experiment/uboone/params.jsonnet";
 
 base {
     lar: super.lar {
+        // be sure you really want to have this. default value: 8 ms
         lifetime: 1000.0*wc.ms,
     },
-
     daq: super.daq {
 
         // Number of readout ticks.  See also sim.response.nticks.
@@ -72,7 +72,7 @@ base {
         // For running in LArSoft, the simulation must be in fixed time mode. 
         fixed: true,
         continuous: false,
-        fluctuate: false,
+        fluctuate: true,
 
         ductor : super.ductor {
             start_time: $.daq.start_time - $.elec.fields.drift_dt + $.trigger.time,
@@ -132,12 +132,10 @@ base {
         chresp: null,
     },
 
-    // for SimEnergyDeposit -- number of electrons should have a gain
-    // of -1.0 to indicate the sign of the charge
     // This sets a relative gain at the input to the ADC.  Note, if
     // you are looking to fix SimDepoSource, you are in the wrong
     // place.  See the "scale" parameter of wcls.input.depos() defined
-    // in pgrapher/ui/wcls/nodes.jsonnet.
+    // in pgrapher/common/ui/wcls/nodes.jsonnet.
     elec: super.elec{
         postgain: 1.0,
     },
