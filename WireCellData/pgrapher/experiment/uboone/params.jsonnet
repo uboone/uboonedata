@@ -8,7 +8,9 @@ base {
     lar: super.lar {
         DL : 6.4 * wc.cm2/wc.s,
         DT : 9.8 * wc.cm2/wc.s,
-        drift_speed : 1.1*wc.mm/wc.us,
+        // given cathode is at 2.548 m, this speed leads to a consistent maximum
+        // drifting time with that in data -- 2.560 m / 1.101 mm/us
+        drift_speed : 1.098*wc.mm/wc.us, 
     },
 
     daq: super.daq {
@@ -18,8 +20,9 @@ base {
         nticks: 9595,
     },        
     adc: super.adc {
-        // There are post-FE amplifiers
-        // fixme: should this be elec.postgain?
+        // There are post-FE amplifiers.  Should this be
+        // elec.postgain? (could be, but it's fine here.  There are 2
+        // relative gains available).
         gain: 1.2,
 
         // fixme: need double checking
@@ -59,7 +62,7 @@ base {
                         // drop any depos w/in this plane.  The exact
                         // choice represents some trade off in
                         // approximations.
-                        anode: 1.0*wc.cm, 
+                        anode: 0.0*wc.mm, 
                         // plane, arbitrary choice.  Microboone wires
                         // put collection plane at absolute x=-6mm,
                         // response.plane_dx is measured relative to

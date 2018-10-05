@@ -13,12 +13,25 @@ local wc = import "wirecell.jsonnet";
     port(inode, num=0) :: { node: wc.tn(inode), port: num },
 
 
-    // Make an edge between two pnodes
+    // Make an edge between two pnodes by passing those pnodes as objects
     edge(tail, head, tp=0, hp=0):: {
         tail: tail.oports[tp],
         head: head.iports[hp],
     },
 
+    // make an edge by passing two pnode "type:name" labels and
+    // optional port numbers.
+    edge_labels(tlabel, hlabel, tp=0, hp=0):: {
+        tail: {
+            node: tlabel,
+            port: tp,
+        }, 
+        head: {
+            node: hlabel,
+            port: hp,
+        },
+    },
+    
 
     // Break an existing edge, terminating the tail end with a new
     // head and starting the head end with a new tail.  Graphically:
@@ -132,6 +145,19 @@ local wc = import "wirecell.jsonnet";
         iports: pnode.iports,
         oports: pnode.oports,
     },
+
+    // Return a list of indices where item is found in list
+    find_indices(list, item):: std.filter(std.isNumber, 
+                                           std.mapWithIndex(function(ind,ele)
+                                                            if ele == item
+                                                            then ind
+                                                            else null,
+                                                            list)),
+
+    // Like insert_one() but give edge to break instead of index
+    insert_node(pnode, edge_to_break, newhead, newtail, iport=0, oport=0, name=null):: 
+    self.insert_one(pnode, self.find_indices(pnode.edges, edge_to_break)[0], newhead, newtail, iport, oport, name),
+
 
     // Joint N sources using joiner, return pnode that looks like a
     // single source.  The joiner must be capable of handling and

@@ -12,6 +12,7 @@
 # -h|--help - Print help message.
 # -u        - Update data in uboonedata.
 # -g        - Check out and/or git pull wire-cell-cfg and wire-cell-data.
+# -d        - Print full diffs (default is to just print which files differ).
 #
 #
 #------------------------------------------------------------------
@@ -19,13 +20,14 @@
 # Help function.
 
 function dohelp {
-  echo "Usage: check_wirecell_data.sh [-h|--help] [-u] [-g]"
+  echo "Usage: check_wirecell_data.sh [-h|--help] [-u] [-g] [-d]"
 }
 
 # Parse arguments.
 
 update=0
 git=0
+diffopt='-q'
 
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -46,6 +48,12 @@ while [ $# -gt 0 ]; do
 
     -g )
       git=1
+      ;;
+
+    # Full diff flag.
+
+    -d )
+      diffopt='-u'
       ;;
 
   esac
@@ -76,9 +84,12 @@ if [ $git -ne 0 ]; then
       rm -rf $pkg
       url=https://github.com/WireCell/$pkg
       git clone $url
+      cd $pkg
+      git checkout 0.9.x
     else
       echo "Git pulling $pkg"
       cd $MRB_SOURCE/$pkg
+      git checkout 0.9.x
       git pull
     fi
   done
@@ -99,8 +110,8 @@ do
       cp $file $file2
     fi
   fi
-  if ! diff -q $file $file2; then
-    echo "Files $file and $file2 differ."
+  if ! diff $diffopt $file $file2; then
+    #echo "Files $file and $file2 differ."
     if [ $update -ne 0 ]; then
       echo "Copying."
       cp $file $file2
@@ -126,8 +137,8 @@ do
         cp $file $file2
       fi
     fi
-    if ! diff -q $file $file2; then
-      echo "Files $file and $file2 differ."
+    if ! diff $diffopt $file $file2; then
+      #echo "Files $file and $file2 differ."
       if [ $update -ne 0 ]; then
         echo "Copying."
         cp $file $file2
@@ -150,8 +161,8 @@ do
       cp $file $file2
     fi
   fi
-  if ! diff -q $file $file2; then
-    echo "Files $file and $file2 differ."
+  if ! diff $diffopt $file $file2; then
+    #echo "Files $file and $file2 differ."
     if [ $update -ne 0 ]; then
       echo "Copying."
       cp $file $file2

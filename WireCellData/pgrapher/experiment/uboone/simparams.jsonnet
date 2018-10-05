@@ -4,7 +4,10 @@ local wc = import "wirecell.jsonnet";
 local base = import "pgrapher/experiment/uboone/params.jsonnet";
 
 base {
-
+    lar: super.lar {
+        // be sure you really want to have this. default value: 8 ms
+        lifetime: 1000.0*wc.ms,
+    },
     daq: super.daq {
 
         // Number of readout ticks.  See also sim.response.nticks.
@@ -65,15 +68,26 @@ base {
     },
 
     sim: super.sim {
-
-    	fluctuate: false,   // HBG added by hand.
         
         // For running in LArSoft, the simulation must be in fixed time mode. 
         fixed: true,
         continuous: false,
+        fluctuate: true,
 
         ductor : super.ductor {
             start_time: $.daq.start_time - $.elec.fields.drift_dt + $.trigger.time,
+        },
+
+        // Additional e.g. 10 us time difference is due to the larger drift velocity 
+        // in Garfield field response where the collection plane peak
+        // at around 81 us instead of response_plane (10 cm to Y plane) /drift_speed.
+        // Assuming a constant drift velocity, this correction is needed.
+        // Interplane timeoffset still holds and will be intrinsically taken into account
+        // in the 2D decon. 
+        reframer: super.reframer{
+            tbin: 81*wc.us/($.daq.tick),
+            nticks: $.daq.nticks,
+            toffset: $.elec.fields.drift_dt - 81*wc.us,
         },
 
     },
@@ -118,9 +132,13 @@ base {
         chresp: null,
     },
 
-    // for SimEnergyDeposit -- number of electrons should have a gain
-    // of -1.0 to indicate the sign of the charge
+    // This sets a relative gain at the input to the ADC.  Note, if
+    // you are looking to fix SimDepoSource, you are in the wrong
+    // place.  See the "scale" parameter of wcls.input.depos() defined
+    // in pgrapher/common/ui/wcls/nodes.jsonnet.
     elec: super.elec{
-        postgain: -1.0,
+        postgain: 1.0,
     },
+
+
 }
