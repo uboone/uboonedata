@@ -1,5 +1,3 @@
-// Fixme: transition this to using graph-based multi ductors instead of MultiDuctor.
-//
 // This configures a WCT job for a pipeline that includes full MB
 // signal and noise effects in the simulation. and the NF/SP
 // components to correct them.  The kinematics here are a mixture of
@@ -31,16 +29,16 @@ local chndb_maker = import "pgrapher/experiment/uboone/chndb.jsonnet";
 local sp_maker = import "pgrapher/experiment/uboone/sp.jsonnet";
 
 local stubby = {
-    tail: wc.point(1000.0, 0.0, 5000.0, wc.mm),
-    head: wc.point(1100.0, 0.0, 5100.0, wc.mm),
+    tail: wc.point(1000.0, 0.0, 100.0, wc.mm),
+    head: wc.point(1100.0, 0.0, 200.0, wc.mm),
 };
 
 local tracklist = [
     {
         time: 1*wc.ms,
         charge: -5000,          // negative means per step
-        ray: stubby,
-        //ray: params.det.bounds,
+        //ray: stubby,
+        ray: params.det.bounds,
     },
 ];
 local output = "wct-sim-ideal-sn-nf-sp.npz";
@@ -54,18 +52,11 @@ local sim = sim_maker(params, tools);
 //                             [sim.ar39(), sim.tracks(tracklist)]);
 local depos = sim.tracks(tracklist);
 
-
 local deposio = io.numpy.depos(output);
 
 local drifter = sim.drifter;
 
-// Signal simulation.
-local ductors = sim.make_anode_ductors(anode);
-local md_pipes = sim.multi_ductor_pipes(ductors);
-local ductor = sim.multi_ductor_graph(anode, md_pipes, "mdg");
-// old monolythic MultiDuctor.
-//local md_chain = sim.multi_ductor_chain(ductors);
-//local ductor = sim.multi_ductor(anode, ductors, [md_chain]);
+local signal = sim.signal;
 
 local miscon = sim.misconfigure(params);
 
@@ -81,6 +72,31 @@ local magnifio = g.pnode({
         frames: ["orig","raw"],
         anode: wc.tn(anode),
     },
+}, nin=1, nout=1, uses=[anode]);
+
+local magnifio2 = g.pnode({
+    type: "MagnifySink",
+    name: "rawmag",
+    data: {
+        output_filename: magout,
+        root_file_mode: "UPDATE",
+        frames: ["raw"],
+        cmmtree: [["bad", "T_bad"], ["lf_noisy", "T_lf"]], // maskmap in nf.jsonnet 
+        anode: wc.tn(anode),
+    },
+}, nin=1, nout=1);
+
+local magnifio3 = g.pnode({
+    type: "MagnifySink",
+    name: "deconmag",
+    data: {
+        output_filename: magout,
+        root_file_mode: "UPDATE",
+        frames: ["raw", "gauss", "wiener", "threshold"],
+        //cmmtree: [["bad", "T_bad"], ["lf_noisy", "T_lf"]], 
+        anode: wc.tn(anode),
+        //summaries: ["threshold"],
+    },
 }, nin=1, nout=1);
 
 
@@ -95,9 +111,12 @@ local sp_frameio = io.numpy.frames(output, "spframeio", tags="gauss");
 
 local sink = sim.frame_sink;
 
-local graph = g.pipeline([depos, deposio, drifter, ductor, miscon, noise, digitizer,
+local graph = g.pipeline([depos, deposio, drifter, signal,
+                          miscon,
+                          noise, digitizer,
                           sim_frameio, magnifio,
-                          nf, nf_frameio, sp, sp_frameio, sink]);
+                          nf, nf_frameio, magnifio2,
+                          sp, sp_frameio, magnifio3, sink]);
 
 local app = {
     type: "Pgrapher",

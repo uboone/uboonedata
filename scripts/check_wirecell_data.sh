@@ -85,11 +85,11 @@ if [ $git -ne 0 ]; then
       url=https://github.com/WireCell/$pkg
       git clone $url
       cd $pkg
-      git checkout 0.8.x
+      git checkout 0.9.x
     else
       echo "Git pulling $pkg"
       cd $MRB_SOURCE/$pkg
-      git checkout 0.8.x
+      git checkout 0.9.x
       git pull
     fi
   done
