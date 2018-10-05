@@ -170,3 +170,13 @@ do
   fi
 done
 
+# Check jsonnet files in uboonedata that don't have any corresponding file in wire-cell-cfg
+
+find $MRB_SOURCE/uboonedata/WireCellData \( -type d -name nfspl1 -prune -false \) -o \( -type d -name simulation -prune -false \) -o -name \*.jsonnet | while read j1
+do
+  relpath=`echo $j1 | sed "s;$MRB_SOURCE/uboonedata/WireCellData/;;"`
+  j2=$MRB_SOURCE/wire-cell-cfg/$relpath
+  if [ ! -f $j2 ]; then
+    echo "File $relpath exists only in uboonedata."
+  fi
+done
