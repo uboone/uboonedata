@@ -63,9 +63,10 @@ local anode = tools.anodes[0];
 local drifter = sim.drifter;
 
 // Signal simulation.
-local ductors = sim.make_anode_ductors(anode);
-local md_pipes = sim.multi_ductor_pipes(ductors);
-local ductor = sim.multi_ductor_graph(anode, md_pipes, "mdg");
+//local ductors = sim.make_anode_ductors(anode);
+//local md_pipes = sim.multi_ductor_pipes(ductors);
+//local ductor = sim.multi_ductor_graph(anode, md_pipes, "mdg");
+local ductor = sim.signal;
 
 local miscon = sim.misconfigure(params);
 

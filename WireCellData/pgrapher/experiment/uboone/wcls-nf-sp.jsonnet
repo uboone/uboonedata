@@ -5,7 +5,7 @@
 //
 // epoch: the hardware noise fix expoch: "before", "after", "dynamic" or "perfect"
 // reality: whether we are running on "data" or "sim"ulation.
-// raw_input_label: the art::Event label for the input RawDigit
+// raw_input_label: the art::Event inputTag for the input RawDigit
 //
 // see the .fcl of the same name for an example
 //
@@ -60,7 +60,7 @@ local wcls_input = {
         type: 'wclsRawFrameSource',
         name: "",
         data: {
-            source_label: raw_input_label,
+            art_tag: raw_input_label,
             frame_tags: ["orig"], // this is a WCT designator
             nticks: params.daq.nticks,
         },
@@ -104,6 +104,10 @@ local wcls_output = {
             chanmaskmaps: [],
         },
     },nin=1, nout=1, uses=[tools.anode]),
+
+    // save "threshold" from normal decon for each channel noise
+    // used in imaging
+    sp_thresholds: wcls.output.thresholds(name="spthresholds", tags=["threshold"]),
 };
 
 local nf = nf_maker(params, tools, chndb);
@@ -119,12 +123,14 @@ local graph = g.pipeline([wcls_input.adc_digits,
                           wcls_output.sp_signals,
                           sink]);
 
+local graph2 = g.insert_node(graph, g.edge_labels("OmnibusSigProc", "FrameSplitter:sigsplitter"), wcls_output.sp_thresholds, wcls_output.sp_thresholds, name="graph2");
+
 local app = {
     type: "Pgrapher",
     data: {
-        edges: g.edges(graph),
+        edges: g.edges(graph2),
     },
 };
 
 // Finally, the configuration sequence 
-g.uses(graph) + [app]
+g.uses(graph2) + [app]
