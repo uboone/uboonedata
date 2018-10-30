@@ -35,6 +35,7 @@ add_subdirectory(SpaceCharge)
 add_subdirectory(beamData)
 add_subdirectory(uboonebeam)
 add_subdirectory(ups)
+add_subdirectory(ProtonID)
 
 # packaging utility
 include(UseCPack)
