@@ -7,6 +7,10 @@
 #          against uboonedata/WireCellData.  Optionally update data
 #          in uboonedata.
 #
+# Usage:
+#
+# check_wirecell_data.sh <options>
+#
 # Options:
 #
 # -h|--help - Print help message.
@@ -14,13 +18,14 @@
 # -g        - Check out and/or git pull wire-cell-cfg and wire-cell-data.
 # -d        - Print full diffs (default is to just print which files differ).
 #
+# Created: H. Greenlee 1-Sep-2018
 #
 #------------------------------------------------------------------
 
 # Help function.
 
 function dohelp {
-  echo "Usage: check_wirecell_data.sh [-h|--help] [-u] [-g] [-d]"
+  awk '/^# Usage:/,/^# Created:/{print $0}' $0 | cut -c3- | head -n -2
 }
 
 # Parse arguments.
