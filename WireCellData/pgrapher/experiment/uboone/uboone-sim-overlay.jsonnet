@@ -8,8 +8,19 @@
 local wc = import "wirecell.jsonnet";
 local g = import "pgraph.jsonnet";
 
+// overlay: no noise, misconfigure channels
+// Digitizer output: always positive + able to assign a tag to the frame
+// baselines have to be there, do we need to change, easy to subtract in overlays?
+local base = import "pgrapher/experiment/uboone/simparams.jsonnet";
+local params = base {
+    adc: super.adc{
+  //      baselines: [2000*wc.millivolt, 2000*wc.millivolt, 2000*wc.millivolt],
+  //      resolution: base.adc.resolution+1,
+  //      fullscale: [0*wc.volt, base.adc.fullscale[1]*2],
+    },
+};
 
-local params = import "pgrapher/experiment/uboone/simparams.jsonnet";
+
 local tools_maker = import "pgrapher/common/tools.jsonnet";
 local tools = tools_maker(params);
 local sim_maker = import "pgrapher/experiment/uboone/sim.jsonnet";
@@ -98,29 +109,31 @@ local miscon = sim.misconfigure(params);
 
 // Noise simulation adds to signal.
 //local noise_model = sim.make_noise_model(anode, sim.empty_csdb);
-local noise_model = sim.make_noise_model(anode, sim.miscfg_csdb);
-local noise = sim.add_noise(noise_model);
+//local noise_model = sim.make_noise_model(anode, sim.miscfg_csdb);
+//local noise = sim.add_noise(noise_model);
 
 local digitizer = sim.digitizer(anode, tag="orig");
 
 
-
-local noise_epoch = "perfect";
-//local noise_epoch = "after";
-local chndb = chndb_maker(params, tools).wct(noise_epoch);
-//local nf = nf_maker(params, tools, chndb);
-
-// signal processing
-//local sp = sp_maker(params, tools);
-
-
 local sink = sim.frame_sink;
+//local sink = sim.depo_sink;
 
+local magnifio = g.pnode({
+    type: "MagnifySink",
+    name: "origmag",
+    data: {
+        output_filename: "sim-overlay-check.root",
+        root_file_mode: "RECREATE",
+        frames: ["orig"],
+        anode: wc.tn(anode),
+    },
+}, nin=1, nout=1);
 local graph = g.pipeline([wcls_input.depos,
                           drifter, 
                           wcls_simchannel_sink,
-                          ductor, miscon, noise, digitizer,
+                          ductor, miscon, digitizer,
                           wcls_output.sim_digits,
+                          //magnifio,
                           sink]);
 
 
