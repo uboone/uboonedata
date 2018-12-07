@@ -9,7 +9,18 @@ local wc = import "wirecell.jsonnet";
 local g = import "pgraph.jsonnet";
 
 
-local params = import "pgrapher/experiment/uboone/simparams.jsonnet";
+local params_base = import "pgrapher/experiment/uboone/simparams.jsonnet";
+local params = if std.extVar("sys_resp") == true
+                then params_base {
+                    sys_status: true,
+                    sys_resp: super.sys_resp {
+                        start: [std.extVar("sys_resp_start") for n in [0,1,2]],
+                        magnitude: std.extVar("sys_resp_magnitude"),
+                        time_smear: std.extVar("sys_resp_time_smear"),
+                    }
+                }
+                else params_base;
+
 local tools_maker = import "pgrapher/common/tools.jsonnet";
 local tools = tools_maker(params);
 local sim_maker = import "pgrapher/experiment/uboone/sim.jsonnet";
@@ -36,7 +47,7 @@ local sim_adc_frame_tag = "orig";
 // Collect the WC/LS input converters for use below.  Make sure the
 // "name" matches what is used in the FHiCL that loads this file.
 // art_label (producer, e.g. plopper) and art_instance (e.g. bogus) may be needed
-// fudge factor to account for MC/data gain e.g. 178/242=0.736
+// fudge factor to account for MC/data gain e.g. 200/242=0.826
 local fudge = std.extVar("gain_fudge_factor");
 local wcls_input = {
     depos: wcls.input.depos(name="", scale=-1.0*fudge, art_tag="ionization"),
@@ -47,7 +58,8 @@ local wcls_input = {
 // FHiCL that loads this file.
 local wcls_output = {
     // ADC output from simulation
-    sim_digits: wcls.output.digits(name="simdigits", tags=[sim_adc_frame_tag]),
+    // pedestal_mean = "native" to SetPedestals() for RawDigits based on a native calculation per channel
+    sim_digits: wcls.output.digits(name="simdigits", tags=[sim_adc_frame_tag], pedestal_mean="native"),
     
     // The noise filtered "ADC" values.  These are truncated for
     // art::Event but left as floats for the WCT SP.  Note, the tag
@@ -116,11 +128,23 @@ local chndb = chndb_maker(params, tools).wct(noise_epoch);
 
 local sink = sim.frame_sink;
 
+
+local magnifio = g.pnode({
+    type: "MagnifySink",
+    name: "origmag",
+    data: {
+        output_filename: "sim-check.root",
+        root_file_mode: "RECREATE",
+        frames: ["orig"],
+        anode: wc.tn(anode),
+    },
+}, nin=1, nout=1);
 local graph = g.pipeline([wcls_input.depos,
                           drifter, 
                           wcls_simchannel_sink,
                           ductor, miscon, noise, digitizer,
                           wcls_output.sim_digits,
+                          //magnifio,
                           sink]);
 
 

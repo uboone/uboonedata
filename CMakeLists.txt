@@ -34,6 +34,7 @@ add_subdirectory(Response)
 add_subdirectory(SpaceCharge)
 add_subdirectory(beamData)
 add_subdirectory(uboonebeam)
+add_subdirectory(systematics)
 add_subdirectory(ups)
 
 # packaging utility
