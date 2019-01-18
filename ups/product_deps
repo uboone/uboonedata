@@ -2,7 +2,7 @@
 
 # The *parent* line must the first non-commented line and defines this product and version
 # The version should be of the form vxx_yy_zz (e.g. v01_02_03)
-parent uboonedata v01_17_00_09
+parent uboonedata v01_17_00_10
 
 # The no_fq_dir keyword indicates that this product is NULL flavored
 no_fq_dir
@@ -45,7 +45,7 @@ table_fragment_end
 product          version
 uboone_photon_propagation	v01_00_00
 
-cetbuildtools			v7_04_00	-	only_for_build
+cetbuildtools			v7_06_03	-	only_for_build
 end_product_list
 
 # We now define allowed qualifiers and the corresponding qualifiers for the depdencies.
