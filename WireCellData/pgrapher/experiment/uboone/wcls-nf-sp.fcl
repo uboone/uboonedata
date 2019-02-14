@@ -18,7 +18,9 @@ source: {
    module_type: RootInput
    saveMemoryObjectThreshold: 10485760
 
-   inputCommands: ["drop *", "keep raw::RawDigits_*_*_*"]
+   inputCommands: ["drop *", "keep raw::RawDigits_*_*_*"
+   //, "keep *_ionization_*_*"
+   ]
    #inputCommands: ["drop *", "keep *_*_*_Swizzler"]
 }
 
@@ -87,7 +89,8 @@ outputs:{
 
       outputCommands :   [
          "keep *_*_*_*"
-         // "drop *_nfspl1_raw_*",
+         //"drop *_driftWC_orig_*",
+         //"drop *_nfspl1_raw_*",
          // "drop *_nfspl1_threshold_*",
          // "drop *_nfspl1_wiener_*",
          // "drop *_nfspl1_gauss_*",
