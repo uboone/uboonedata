@@ -9,7 +9,13 @@ local wc = import "wirecell.jsonnet";
 local g = import "pgraph.jsonnet";
 
 
-local params_base = import "pgrapher/experiment/uboone/simparams.jsonnet";
+local params_sim = import "pgrapher/experiment/uboone/simparams.jsonnet";
+local params_base = params_sim {
+      lar: super.lar {
+           DL: std.extVar("DiffusionLongitudinal") * wc.cm2/wc.s,
+	   DT: std.extVar("DiffusionTransverse") * wc.cm2/wc.s,
+      }
+};
 local params = if std.extVar("sys_resp") == true
                 then params_base {
                     sys_status: true,

@@ -12,6 +12,11 @@ local g = import "pgraph.jsonnet";
 local params_sim = import "pgrapher/experiment/uboone/simparams.jsonnet";
 local params_files = import "pgrapher/experiment/uboone/params.jsonnet";
 local params_base = params_sim {
+    lar: super.lar {
+         DL: std.extVar("DiffusionLongitudinal") * wc.cm2/wc.s,
+	 DT: std.extVar("DiffusionTransverse") * wc.cm2/wc.s,
+    }
+
     files: super.files{
         chresp: params_files.files.chresp,
     },
