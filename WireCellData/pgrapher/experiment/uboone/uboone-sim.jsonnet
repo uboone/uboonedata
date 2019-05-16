@@ -14,6 +14,7 @@ local params_base = params_sim {
       lar: super.lar {
            DL: std.extVar("DiffusionLongitudinal") * wc.cm2/wc.s,
 	   DT: std.extVar("DiffusionTransverse") * wc.cm2/wc.s,
+	   lifetime: std.extVar("ElectronLifetime")* wc.ms,
       }
 };
 local params = if std.extVar("sys_resp") == true
