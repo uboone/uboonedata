@@ -15,7 +15,7 @@ local params_base = params_sim {
     lar: super.lar {
          DL: std.extVar("DiffusionLongitudinal") * wc.cm2/wc.s,
 	 DT: std.extVar("DiffusionTransverse") * wc.cm2/wc.s,
-	 lifetime: std.extVar("ElectronLifetiime") * wc.ms,
+	 lifetime: std.extVar("ElectronLifetime") * wc.ms,
     }
 
     files: super.files{
