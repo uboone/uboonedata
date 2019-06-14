@@ -117,7 +117,7 @@
       <point coord="det"> -20.41730004, -13.57997006, 40.17686941  </point>
     </window>
     <enumax> 18. 1.05 </enumax>
-    <reuse> 10 </reuse>
+    <reuse> 20 </reuse>
   </param_set>
 
 </gnumi_config>
