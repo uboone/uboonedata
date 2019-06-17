@@ -18,10 +18,10 @@ function(params, tools) {
             field_response: wc.tn(tools.field),
             per_chan_resp: wc.tn(tools.perchanresp),
 	    fft_flag: 0,   // 1 is faster but higher memory, 0 is slightly slower but lower memory
-	    troi_ind_th_factor : 2.0, // DAVIDC
-	    troi_col_th_factor : 3.0, // DAVIDC
-	    r_fake_signal_low_th: 100.0, // DAVIDC
-	    r_fake_signal_high_th: 300.0, // DAVIDC
+	    troi_ind_th_factor : 3.0, // DAVIDC
+	    troi_col_th_factor : 5.0, // DAVIDC
+	    r_fake_signal_low_th: 500.0, // DAVIDC
+	    r_fake_signal_high_th: 1000.0, // DAVIDC
         }
     }, nin=1,nout=1, uses=[tools.anode, tools.field, tools.perchanresp] + import "sp-filters.jsonnet"),
 local sigproc_uniform = g.pnode({
