@@ -39,7 +39,7 @@ set_fwdir  product_dir  PandoraData
 # to find data files:
 table_fragment_begin
     pathPrepend(WIRECELL_PATH, ${UPS_PROD_DIR}/WireCellData:${WIRECELL_FQ_DIR}/share/wirecell )
-    pathPrepend(GXMLPATH, ${UBOONEDATA_DIR}/genie)
+    pathPrepend(GXMLPATH, ${UBOONEDATA_DIR}/source/genie)
 table_fragment_end
 
 # Add the dependent product and version
