@@ -1,6 +1,6 @@
 # Data files.
 
-LIST(APPEND data calibration_mcc8.4_v1.root )
+LIST(APPEND data *.root )
 
 message(STATUS "Data files ${data}")
 
