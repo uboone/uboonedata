@@ -1,6 +1,6 @@
 # Data files.
 
-LIST(APPEND data 2019_08_15_sigma_map.root)
+FILE(GLOB data *.root )
 
 message(STATUS "Data files ${data}")
 
