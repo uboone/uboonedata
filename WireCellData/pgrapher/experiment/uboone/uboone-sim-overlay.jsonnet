@@ -21,6 +21,7 @@ local params_base = params_sim {
         histnames: std.extVar("YZCorrhistnames"),
     	scaleDATA_perplane: std.extVar("scaleDATA_perplane"),
     	scaleMC_perplane: std.extVar("scaleMC_perplane"),
+      ELifetimeCorrection: if std.extVar("ELifetimeCorrection") == true then true else false,
     }
 };
 local params = if std.extVar("sys_resp") == true
