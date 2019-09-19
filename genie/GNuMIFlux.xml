@@ -79,7 +79,7 @@
       <point coord="det"> -5, 2, -35 </point>
       <point coord="det"> 5, -5, 20  </point>
     </window>
-    <enumax> 18. 1.05 </enumax> 
+    <enumax> 22. 1.05 </enumax> 
     <!--first number is estimated max energy, second is	
         scale factor to multiply max scan energy by -->
   </param_set>
@@ -98,8 +98,8 @@
       <point coord="det"> -5, 2, -35 </point>
       <point coord="det"> 5, -5, 20  </point>
     </window>
-    <enumax> 18. 1.05 </enumax>
-    <reuse> 10 </reuse>
+    <enumax> 20. 1.05 </enumax>
+    <reuse> 40 </reuse>
   </param_set>
 
   <param_set name="microboone-numi-v2-dirt">
@@ -116,8 +116,8 @@
       <point coord="det"> -5.887503031, -10.29041579, -72.33150682 </point>
       <point coord="det"> -20.41730004, -13.57997006, 40.17686941  </point>
     </window>
-    <enumax> 18. 1.05 </enumax>
-    <reuse> 20 </reuse>
+    <enumax> 22. 1.05 </enumax>
+    <reuse> 100 </reuse>
   </param_set>
 
 </gnumi_config>
