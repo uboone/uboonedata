@@ -156,6 +156,7 @@ base {
         histnames: [],
 	scaleDATA_perplane: [],
 	scaleMC_perplane: [],
+  ELifetimeCorrection: false,
     }
 
 }
