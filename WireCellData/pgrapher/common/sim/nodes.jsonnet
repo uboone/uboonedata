@@ -44,6 +44,7 @@ function(params, tools)
             DL: params.lar.DL,
             DT: params.lar.DT,
             lifetime: params.lar.lifetime,
+            ELifetimeCorrection: params.overlay.ELifetimeCorrection,
 
         },
     }, nin=1, nout=1, uses=[tools.random]),
