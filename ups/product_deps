@@ -29,24 +29,27 @@ incdir  -
 libdir  -
 bindir  product_dir bin
 fcldir  -
+wpdir  product_dir WireCellData
 set_fwdir  product_dir  .
 set_fwdir  product_dir  Response
 set_fwdir  product_dir  Calibration
 set_fwdir  product_dir  CRT
 set_fwdir  product_dir  PandoraData
 
+# using wpdir and install_wp
+# the wirecell procduct prepends ${WIRECELL_FQ_DIR}/share/wirecell
 # table fragment to set WIRECELL_PATH needed 
 # to find data files:
-table_fragment_begin
-    pathPrepend(WIRECELL_PATH, ${UPS_PROD_DIR}/WireCellData:${WIRECELL_FQ_DIR}/share/wirecell )
-table_fragment_end
+#table_fragment_begin
+#    pathPrepend(WIRECELL_PATH, ${UPS_PROD_DIR}/WireCellData:${WIRECELL_FQ_DIR}/share/wirecell )
+#table_fragment_end
 
 # Add the dependent product and version
 
 product          version
 uboone_photon_propagation	v01_00_00
 
-cetbuildtools			v7_06_04	-	only_for_build
+cetbuildtools			v7_14_00	-	only_for_build
 end_product_list
 
 # We now define allowed qualifiers and the corresponding qualifiers for the depdencies.

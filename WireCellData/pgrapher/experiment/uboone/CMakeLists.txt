@@ -4,4 +4,6 @@ FILE(GLOB data *.jsonnet *.fcl )
 
 message(STATUS "Data files ${data}")
 
-install(FILES ${data} DESTINATION ${product}/${version}/WireCellData/pgrapher/experiment/uboone)
+#install(FILES ${data} DESTINATION #${product}/${version}/WireCellData/pgrapher/experiment/uboone)
+
+install_wp(LIST ${data} SUBDIRNAME pgrapher/experiment/uboone)
