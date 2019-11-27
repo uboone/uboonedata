@@ -1,4 +1,4 @@
-// This provides signal processing related pnodes, 
+// This provides signal processing related pnodes,
 
 local wc = import "wirecell.jsonnet";
 local g = import "pgraph.jsonnet";
@@ -31,11 +31,11 @@ local sigproc_uniform = g.pnode({
             field_response: wc.tn(tools.field),
             per_chan_resp: "",
             shaping: params.elec.shaping,
-	    fft_flag: 0,    // 1 is faster but higher memory, 0 is slightly slower but lower memory	
-	    troi_ind_th_factor : 2.0, // DAVIDC
-	    troi_col_th_factor : 3.0, // DAVIDC
-	    r_fake_signal_low_th: 100.0, // DAVIDC
-	    r_fake_signal_high_th: 300.0, // DAVIDC
+	    fft_flag: 0,    // 1 is faster but higher memory, 0 is slightly slower but lower memory
+	    troi_ind_th_factor : 3.0, // DAVIDC
+	    troi_col_th_factor : 5.0, // DAVIDC
+	    r_fake_signal_low_th: 300.0, // DAVIDC
+	    r_fake_signal_high_th: 500.0, // DAVIDC
         }
     }, nin=1,nout=1,uses=[tools.anode, tools.field] + import "sp-filters.jsonnet"),
 // ch-by-ch response correction in SP turn off by setting null input
