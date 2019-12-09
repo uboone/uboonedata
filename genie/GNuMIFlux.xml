@@ -99,7 +99,7 @@
       <point coord="det"> 5, -5, 20  </point>
     </window>
     <enumax> 20. 1.05 </enumax>
-    <reuse> 40 </reuse>
+    <reuse> 20 </reuse>
   </param_set>
 
   <param_set name="microboone-numi-v2-dirt">
