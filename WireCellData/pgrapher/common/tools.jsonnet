@@ -60,7 +60,7 @@ function(params)
     },
 
     elec_resp : {
-        type: "ElecResponse",
+        type: "ColdElecResponse",
         data: sim_response_binning {
             shaping: params.elec.shaping,
             gain: params.elec.gain,
