@@ -46,7 +46,7 @@ table_fragment_end
 # Add the dependent product and version
 
 product          version
-uboone_photon_propagation	v01_00_00
+uboone_photon_propagation	v01_01_00
 
 cetbuildtools			v7_15_01	-	only_for_build
 end_product_list
