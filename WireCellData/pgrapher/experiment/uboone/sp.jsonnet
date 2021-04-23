@@ -14,6 +14,10 @@ function(params, tools) {
             // They can be selectively overriddent.  This class also hard
             // codes a slew of SP filter component names which MUST
             // correctly match what is provided in sp-filters.jsonnet.
+	    //troi_ind_th_factor : 3.0, // DAVIDC
+	    //troi_col_th_factor : 5.0, // DAVIDC
+	    //r_fake_signal_low_th: 300.0, // DAVIDC
+	    //r_fake_signal_high_th: 500.0, // DAVIDC
 	    r_fake_signal_low_th: 1.0, 
        	    r_fake_signal_high_th: 1.0,
 	    r_fake_signal_low_th_ind_factor: 375.0,
@@ -32,6 +36,10 @@ local sigproc_uniform = g.pnode({
             per_chan_resp: "",
             shaping: params.elec.shaping,
 	    fft_flag: 0,    // 1 is faster but higher memory, 0 is slightly slower but lower memory	
+	    //troi_ind_th_factor : 3.0, // DAVIDC
+	    //troi_col_th_factor : 5.0, // DAVIDC
+	    //r_fake_signal_low_th: 300.0, // DAVIDC
+	    //r_fake_signal_high_th: 500.0, // DAVIDC
 	    r_fake_signal_low_th: 1.0, 
             r_fake_signal_high_th: 1.0,
 	    r_fake_signal_low_th_ind_factor: 375.0,
