@@ -14,38 +14,24 @@ function(params, tools) {
             // They can be selectively overriddent.  This class also hard
             // codes a slew of SP filter component names which MUST
             // correctly match what is provided in sp-filters.jsonnet.
-	    //troi_ind_th_factor : 3.0, // DAVIDC
-	    //troi_col_th_factor : 5.0, // DAVIDC
-	    //r_fake_signal_low_th: 300.0, // DAVIDC
-	    //r_fake_signal_high_th: 500.0, // DAVIDC
-	    r_fake_signal_low_th: 1.0, 
-       	    r_fake_signal_high_th: 1.0,
-	    r_fake_signal_low_th_ind_factor: 375.0,
-	    r_fake_signal_high_th_ind_factor: 750.0, 
             anode: wc.tn(tools.anode),
             field_response: wc.tn(tools.field),
+            elecresponse: wc.tn(tools.elec_resp),
             per_chan_resp: wc.tn(tools.perchanresp),
 	    fft_flag: 0,   // 1 is faster but higher memory, 0 is slightly slower but lower memory
         }
-    }, nin=1,nout=1, uses=[tools.anode, tools.field, tools.perchanresp] + import "sp-filters.jsonnet"),
+    }, nin=1,nout=1, uses=[tools.anode, tools.field, tools.elec_resp, tools.perchanresp] + import "sp-filters.jsonnet"),
 local sigproc_uniform = g.pnode({
         type: "OmnibusSigProc",
         data: {
             anode: wc.tn(tools.anode),
             field_response: wc.tn(tools.field),
+            elecresponse: wc.tn(tools.elec_resp),
             per_chan_resp: "",
             shaping: params.elec.shaping,
 	    fft_flag: 0,    // 1 is faster but higher memory, 0 is slightly slower but lower memory	
-	    //troi_ind_th_factor : 3.0, // DAVIDC
-	    //troi_col_th_factor : 5.0, // DAVIDC
-	    //r_fake_signal_low_th: 300.0, // DAVIDC
-	    //r_fake_signal_high_th: 500.0, // DAVIDC
-	    r_fake_signal_low_th: 1.0, 
-            r_fake_signal_high_th: 1.0,
-	    r_fake_signal_low_th_ind_factor: 375.0,
-	    r_fake_signal_high_th_ind_factor: 750.0, 
         }
-    }, nin=1,nout=1,uses=[tools.anode, tools.field] + import "sp-filters.jsonnet"),
+    }, nin=1,nout=1,uses=[tools.anode, tools.field, tools.elec_resp] + import "sp-filters.jsonnet"),
 // ch-by-ch response correction in SP turn off by setting null input
 local sigproc = if std.type(params.files.chresp)=='null'
                     then sigproc_uniform
