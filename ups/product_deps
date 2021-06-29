@@ -36,18 +36,17 @@ set_fwdir  product_dir  Calibration
 set_fwdir  product_dir  CRT
 set_fwdir  product_dir  PandoraData
 
-# using wpdir and install_wp
-# the wirecell procduct prepends ${WIRECELL_FQ_DIR}/share/wirecell
-# table fragment to set WIRECELL_PATH needed 
+# table fragment to set WIRECELL_PATH and GXMLPATH needed 
 # to find data files:
-#table_fragment_begin
-#    pathPrepend(WIRECELL_PATH, ${UPS_PROD_DIR}/WireCellData:${WIRECELL_FQ_DIR}/share/wirecell )
-#table_fragment_end
+table_fragment_begin
+    pathPrepend(WIRECELL_PATH, ${UPS_PROD_DIR}/WireCellData:${WIRECELL_FQ_DIR}/share/wirecell )
+    pathPrepend(GXMLPATH, ${UBOONEDATA_DIR}/genie)
+table_fragment_end
 
 # Add the dependent product and version
 
 product          version
-uboone_photon_propagation	v01_00_00
+uboone_photon_propagation	v01_01_00
 
 cetbuildtools			v7_15_01	-	only_for_build
 end_product_list

@@ -9,7 +9,27 @@ local wc = import "wirecell.jsonnet";
 local g = import "pgraph.jsonnet";
 
 
-local params_base = import "pgrapher/experiment/uboone/simparams.jsonnet";
+local params_sim = import "pgrapher/experiment/uboone/simparams.jsonnet";
+local params_files = import "pgrapher/experiment/uboone/params.jsonnet";
+local params_base = params_sim {
+    lar: super.lar {
+         DL: std.extVar("DiffusionLongitudinal") * wc.cm2/wc.s,
+	 DT: std.extVar("DiffusionTransverse") * wc.cm2/wc.s,
+	 lifetime: std.extVar("ElectronLifetime") * wc.ms,
+    },
+
+    files: super.files{
+        chresp: params_files.files.chresp,
+    },
+
+    overlay: super.overlay {
+        filenameMC: std.extVar("YZCorrfilenameMC"),
+        histnames: std.extVar("YZCorrhistnames"),
+    	scaleDATA_perplane: std.extVar("scaleDATA_perplane"),
+    	scaleMC_perplane: std.extVar("scaleMC_perplane"),
+      ELifetimeCorrection: if std.extVar("ELifetimeCorrection") == true then true else false,
+    }
+};
 local params = if std.extVar("sys_resp") == true
                 then params_base {
                     sys_status: true,
@@ -23,7 +43,7 @@ local params = if std.extVar("sys_resp") == true
 
 local tools_maker = import "pgrapher/common/tools.jsonnet";
 local tools = tools_maker(params);
-local sim_maker = import "pgrapher/experiment/uboone/sim.jsonnet";
+local sim_maker = import "pgrapher/experiment/uboone/sim_overlay.jsonnet";
 local sim = sim_maker(params, tools);
 
 local wcls_maker = import "pgrapher/ui/wcls/nodes.jsonnet";
@@ -98,13 +118,30 @@ local wcls_simchannel_sink = g.pnode({
 }, nin=1, nout=1, uses=[tools.anode]);
 
 
-local drifter = sim.drifter;
+//local drifter = sim.drifter;
+/// dynamic electron lifetime
+local drifter = sim.ubdrifter;
 
 // Signal simulation.
 //local ductors = sim.make_anode_ductors(anode);
 //local md_pipes = sim.multi_ductor_pipes(ductors);
 //local ductor = sim.multi_ductor_graph(anode, md_pipes, "mdg");
 local ductor = sim.signal;
+
+
+// ch-by-ch variation simulation
+local perchanvar = g.pnode({
+    type: "PerChannelVariation",
+    name: "PerChannelVariation",
+    data: {
+        gain: params.elec.gain,
+        shaping: params.elec.shaping,
+        tick: params.daq.tick,
+        truncate: true,
+        per_chan_resp: wc.tn(tools.perchanresp),
+    },
+}, nin=1, nout=1, uses=[tools.perchanresp]);
+
 
 
 // Noise simulation adds to signal.
@@ -136,7 +173,7 @@ local magnifio = g.pnode({
 local graph = g.pipeline([wcls_input.depos,
                           drifter, 
                           wcls_simchannel_sink,
-                          ductor, miscon, digitizer,
+                          ductor, perchanvar, miscon, digitizer,
                           wcls_output.sim_digits,
                           //magnifio,
                           sink]);

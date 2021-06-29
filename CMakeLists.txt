@@ -34,8 +34,11 @@ add_subdirectory(Response)
 add_subdirectory(SpaceCharge)
 add_subdirectory(beamData)
 add_subdirectory(uboonebeam)
+add_subdirectory(searchingfornues)
 add_subdirectory(systematics)
 add_subdirectory(ups)
+add_subdirectory(genie)
+add_subdirectory(ParticleID)
 
 # packaging utility
 include(UseCPack)
