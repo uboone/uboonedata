@@ -14,7 +14,6 @@ function(params, tools) {
             // They can be selectively overriddent.  This class also hard
             // codes a slew of SP filter component names which MUST
             // correctly match what is provided in sp-filters.jsonnet.
-<<<<<<< HEAD
 	    //troi_ind_th_factor : 3.0, // DAVIDC
 	    //troi_col_th_factor : 5.0, // DAVIDC
 	    //r_fake_signal_low_th: 300.0, // DAVIDC
@@ -23,19 +22,10 @@ function(params, tools) {
        	    r_fake_signal_high_th: 1.0,
 	    r_fake_signal_low_th_ind_factor: 375.0,
 	    r_fake_signal_high_th_ind_factor: 750.0, 
-=======
->>>>>>> origin/v08_00_00_13_br
             anode: wc.tn(tools.anode),
             field_response: wc.tn(tools.field),
             per_chan_resp: wc.tn(tools.perchanresp),
 	    fft_flag: 0,   // 1 is faster but higher memory, 0 is slightly slower but lower memory
-<<<<<<< HEAD
-=======
-            troi_ind_th_factor : 3.0, // DAVIDC
-            troi_col_th_factor : 5.0, // DAVIDC
-            r_fake_signal_low_th: 300.0, // DAVIDC
-            r_fake_signal_high_th: 500.0, // DAVIDC
->>>>>>> origin/v08_00_00_13_br
         }
     }, nin=1,nout=1, uses=[tools.anode, tools.field, tools.perchanresp] + import "sp-filters.jsonnet"),
 local sigproc_uniform = g.pnode({
@@ -46,7 +36,6 @@ local sigproc_uniform = g.pnode({
             per_chan_resp: "",
             shaping: params.elec.shaping,
 	    fft_flag: 0,    // 1 is faster but higher memory, 0 is slightly slower but lower memory	
-<<<<<<< HEAD
 	    //troi_ind_th_factor : 3.0, // DAVIDC
 	    //troi_col_th_factor : 5.0, // DAVIDC
 	    //r_fake_signal_low_th: 300.0, // DAVIDC
@@ -55,12 +44,6 @@ local sigproc_uniform = g.pnode({
             r_fake_signal_high_th: 1.0,
 	    r_fake_signal_low_th_ind_factor: 375.0,
 	    r_fake_signal_high_th_ind_factor: 750.0, 
-=======
-            troi_ind_th_factor : 3.0, // DAVIDC
-            troi_col_th_factor : 5.0, // DAVIDC
-            r_fake_signal_low_th: 300.0, // DAVIDC
-            r_fake_signal_high_th: 500.0, // DAVIDC
->>>>>>> origin/v08_00_00_13_br
         }
     }, nin=1,nout=1,uses=[tools.anode, tools.field] + import "sp-filters.jsonnet"),
 // ch-by-ch response correction in SP turn off by setting null input
