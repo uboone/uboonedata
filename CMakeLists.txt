@@ -2,9 +2,9 @@
 
 #  This simply copies files into an install directory - there is no build
 
-CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
+CMAKE_MINIMUM_REQUIRED (VERSION 3.19)
 
-project(uboonedata NONE)
+project(uboonedata VERSION 09.31.00 LANGUAGES NONE)
 
 # cetbuildtools contains our cmake modules
 set( CETBUILDTOOLS_VERSION $ENV{CETBUILDTOOLS_VERSION} )
