@@ -7,22 +7,12 @@ CMAKE_MINIMUM_REQUIRED (VERSION 3.19)
 project(uboonedata VERSION 09.31.00 LANGUAGES NONE)
 
 # cetbuildtools contains our cmake modules
-set( CETBUILDTOOLS_VERSION $ENV{CETBUILDTOOLS_VERSION} )
-if( NOT CETBUILDTOOLS_VERSION )
-  message( FATAL_ERROR "ERROR: setup cetbuildtools to get the cmake modules" )
-endif()
-set( CMAKE_MODULE_PATH $ENV{CETBUILDTOOLS_DIR}/Modules ${CMAKE_MODULE_PATH} )
-
-# Add any modules from this source necessary for building
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/Modules ${CMAKE_MODULE_PATH} )
+find_package(cetbuildtools REQUIRED)
 
 include(CetCMakeEnv)
 
 # uboonedata has no architecture dependence
 cet_cmake_env( noarch )
-
-# Make sure cetbuildtools is set up (version is minimum)
-find_ups_product(cetbuildtools v4_14_01)
 
 # source code
 add_subdirectory(scripts)
