@@ -4,7 +4,7 @@
 
 CMAKE_MINIMUM_REQUIRED (VERSION 3.19)
 
-project(uboonedata VERSION 09.31.00 LANGUAGES NONE)
+project(uboonedata VERSION 09.32.00 LANGUAGES NONE)
 
 # cetbuildtools contains our cmake modules
 find_package(cetbuildtools REQUIRED)
