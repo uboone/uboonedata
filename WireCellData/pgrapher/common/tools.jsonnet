@@ -1,19 +1,32 @@
-
 // This file provides a function which takes a params object (see
 // ../params/) and returns a data structure with a number of
 // sub-objects that may configure various WCT "tool" type componets
 // which are not INodes.
 
+// Some attributes are merely default and you may wish to override
+// them.  For example, the default IDFT FftwDFT and to instead ues
+// TorchDFT you may do something like:
+//
+// local default_tools = tools_maker(params)
+// local tools = std.mergePatch(default_tools,
+//   {dft: {type: "TorchDFT", data: {device: "gpu"}}});
+// 
+
 local wc = import "wirecell.jsonnet";
 
 function(params)
 {
+    // The IRandom pRNG
     random : {
         type: "Random",
         data: {
             generator: "default",
             seeds: [0,1,2,3,4],
         }
+    },
+    // The IDFT FFT implementation 
+    dft : {
+        type: "FftwDFT",
     },
 
     // One FR per field file.
@@ -60,55 +73,66 @@ function(params)
     },
 
     elec_resp : {
-        type: "ColdElecResponse",
+        type: if std.objectHas(params.elec, "type")
+              then params.elec.type
+              else "ColdElecResponse", // default
         data: sim_response_binning {
             shaping: params.elec.shaping,
             gain: params.elec.gain,
             postgain: params.elec.postgain,
+            filename: if std.objectHas(params.elec, "filename")
+                      then params.elec.filename
+                      else ""
         },
     },
 
     rc_resp : {
         type: "RCResponse",
         data: sim_response_binning {
-            width: 1.0*wc.ms,
+            // width: 1.0*wc.ms,
+            width: if std.objectHas(params, 'rc_resp')
+            then params.rc_resp.width else 1.0*wc.ms,
         }
     },
-  
 
-    sys_resp : [ 
-        {
-            type: "ResponseSys",
-            name: "GaussSmearing%d" % n,
-            data: sim_response_binning {
-                start: params.sys_resp.start[n],
-                magnitude: params.sys_resp.magnitude[n],
-                time_smear: params.sys_resp.time_smear[n],
-            }
-        } for n in std.range(0, std.length($.fields)-1) 
-    ],
+
+    sys_resp : {
+        type: "ResponseSys",
+        data: sim_response_binning {
+            start: params.sys_resp.start,
+            magnitude: params.sys_resp.magnitude,
+            time_smear: params.sys_resp.time_smear,
+        }
+    },
 
     // there is one trio of PIRs (one per wire plane in a face) for
-    // each field response.
+    // each field response.  WARNING/fixme: this sets the default DFT
+    // with no way to override!  This config structure needs a redo!
     pirs : std.mapWithIndex(function (n, fr) [
         {
             type: "PlaneImpactResponse",
             name : "PIR%splane%d" % [fr.name, plane],
             data : sim_response_binning {
                 plane: plane,
+                dft: wc.tn($.dft),
                 field_response: wc.tn(fr),
                 // note twice we give rc so we have rc^2 in the final convolution
                 short_responses: if params.sys_status == false
                                     then [wc.tn($.elec_resp)]
-                                    else [wc.tn($.elec_resp), wc.tn($.sys_resp[n])],
-		overall_short_padding: if params.sys_status == false
+                                    else [wc.tn($.elec_resp), wc.tn($.sys_resp)],
+		overall_short_padding: if std.objectHas(params, 'overall_short_padding')
+                                    then params.overall_short_padding
+                                    else if params.sys_status == false
                                     then 0.1*wc.ms
                                     // cover the full time range of the convolved short responses
-                                    else 0.1*wc.ms - params.sys_resp.start[n], 
-		long_responses: [wc.tn($.rc_resp), wc.tn($.rc_resp)],
+                                    else 0.1*wc.ms - params.sys_resp.start,
+		// long_responses: [wc.tn($.rc_resp), wc.tn($.rc_resp)],
+        long_responses: if std.objectHas(params, 'rc_resp')
+        then std.makeArray(params.rc_resp.rc_layers, function(x) wc.tn($.rc_resp))
+        else [wc.tn($.rc_resp), wc.tn($.rc_resp)],
 		long_padding: 1.5*wc.ms,
 	    },
-            uses: [fr, $.elec_resp, $.rc_resp, $.sys_resp[n]],
+            uses: [$.dft, fr, $.elec_resp, $.rc_resp, $.sys_resp],
         } for plane in [0,1,2]], $.fields),
 
     // One anode per detector "volume"
@@ -128,6 +152,8 @@ function(params)
         uses: [$.wires],
     } for vol in params.det.volumes],
 
-    // first anode is nominal
+    // Arbitrarily call out the first anode to make single-anode
+    // detector config slightly cleaner.
     anode: $.anodes[0],
+
 }
