@@ -95,15 +95,17 @@ function(params)
         }
     },
 
-
-    sys_resp : {
-        type: "ResponseSys",
-        data: sim_response_binning {
-            start: params.sys_resp.start,
-            magnitude: params.sys_resp.magnitude,
-            time_smear: params.sys_resp.time_smear,
-        }
-    },
+    sys_resp : [ 
+        {
+            type: "ResponseSys",
+            name: "GaussSmearing%d" % n,
+            data: sim_response_binning {
+                start: params.sys_resp.start[n],
+                magnitude: params.sys_resp.magnitude[n],
+                time_smear: params.sys_resp.time_smear[n],
+            }
+        } for n in std.range(0, std.length($.fields)-1) 
+    ],
 
     // there is one trio of PIRs (one per wire plane in a face) for
     // each field response.  WARNING/fixme: this sets the default DFT
@@ -132,7 +134,7 @@ function(params)
         else [wc.tn($.rc_resp), wc.tn($.rc_resp)],
 		long_padding: 1.5*wc.ms,
 	    },
-            uses: [$.dft, fr, $.elec_resp, $.rc_resp, $.sys_resp],
+            uses: [$.dft, fr, $.elec_resp, $.rc_resp, $.sys_resp[n]],
         } for plane in [0,1,2]], $.fields),
 
     // One anode per detector "volume"

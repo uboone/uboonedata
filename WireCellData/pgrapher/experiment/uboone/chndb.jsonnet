@@ -21,7 +21,7 @@ function(params, tools)
     wcls: function(epoch="before") {
         type: "wclsChannelNoiseDB",
         name: "wclscndb%s"%epoch,
-        data : base(params, tools.anode, tools.field, rms_cuts[epoch]) {
+        data : base(params, tools.anode, tools.field, rms_cuts[epoch], "false") {
             misconfig_channel: {
                 policy: "replace",
                 from: {gain:  params.nf.misconfigured.gain,
@@ -31,6 +31,14 @@ function(params, tools)
             },
         },
         uses: [tools.anode, tools.field],    // pnode extension
+    },
+
+    wclscs: function(name="", type="misconfigured"){
+        type: "wclsChannelSelectorDB",
+        name: name,
+        data: {
+            type: type,
+        },
     },
 
     wcls_multi: function(name="") {
