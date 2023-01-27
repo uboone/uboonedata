@@ -34,6 +34,8 @@ set_fwdir  product_dir  Response
 set_fwdir  product_dir  Calibration
 set_fwdir  product_dir  CRT
 set_fwdir  product_dir  PandoraData
+set_fwdir  product_dir  ppfx
+
 
 # table fragment to set WIRECELL_PATH and GXMLPATH needed 
 # to find data files:

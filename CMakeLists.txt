@@ -39,6 +39,7 @@ add_subdirectory(systematics)
 add_subdirectory(ups)
 add_subdirectory(genie)
 add_subdirectory(ParticleID)
+add_subdirectory(ppfx)
 
 # packaging utility
 include(UseCPack)
