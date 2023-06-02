@@ -41,7 +41,7 @@ set_fwdir  product_dir  SinglePhotonAnalysis
 # to find data files:
 table_fragment_begin
     pathPrepend(WIRECELL_PATH, ${UPS_PROD_DIR}/WireCellData:${WIRECELL_FQ_DIR}/share/wirecell )
-    pathPrepend(GXMLPATH, ${UBOONEDATA_DIR}/source/genie)
+    pathPrepend(GXMLPATH, ${UBOONEDATA_DIR}/genie)
 table_fragment_end
 
 # Add the dependent product and version
