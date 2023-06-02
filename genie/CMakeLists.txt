@@ -1,3 +1,8 @@
 # Data files.
 
-install_source( EXTRAS GNuMIFlux.xml)
+FILE(GLOB data *.xml )
+
+message(STATUS "Data files ${data}")
+
+install(FILES ${data} DESTINATION ${product}/${version}/genie)
+
