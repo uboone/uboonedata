@@ -5,4 +5,4 @@ LIST(APPEND data quietWires.txt )
 
 message(STATUS "Data files ${data}")
 
-install(FILES ${data} DESTINATION ${product}/${version}/Response)
+install(FILES ${data} DESTINATION Response)

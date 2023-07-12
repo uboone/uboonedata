@@ -4,5 +4,5 @@ FILE(GLOB data *.xml )
 
 message(STATUS "Data files ${data}")
 
-install(FILES ${data} DESTINATION ${product}/${version}/PandoraData)
+install(FILES ${data} DESTINATION PandoraData)
 

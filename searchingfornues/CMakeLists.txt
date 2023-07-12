@@ -4,4 +4,4 @@ FILE(GLOB data *.model )
 
 message(STATUS "Data files ${data}")
 
-install(FILES ${data} DESTINATION ${product}/${version}/searchingfornues)
+install(FILES ${data} DESTINATION searchingfornues)

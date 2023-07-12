@@ -4,4 +4,4 @@ FILE(GLOB data *.root )
 
 message(STATUS "Data files ${data}")
 
-install(FILES ${data} DESTINATION ${product}/${version}/systematics/q0q3_rw)
+install(FILES ${data} DESTINATION systematics/q0q3_rw)

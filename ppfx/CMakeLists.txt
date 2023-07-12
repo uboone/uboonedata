@@ -2,4 +2,4 @@
 
 FILE(GLOB data *.xml )
 
-install(FILES ${data} DESTINATION ${product}/${version}/ppfx)
+install(FILES ${data} DESTINATION ppfx)

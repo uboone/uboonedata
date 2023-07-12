@@ -2,19 +2,16 @@
 
 #  This simply copies files into an install directory - there is no build
 
-CMAKE_MINIMUM_REQUIRED (VERSION 3.19)
+CMAKE_MINIMUM_REQUIRED (VERSION 3.20 FATAL_ERROR)
 
+find_package(cetmodules REQUIRED)
 project(uboonedata VERSION 09.76.00 LANGUAGES NONE)
 
-# cetbuildtools contains our cmake modules
-find_package(cetbuildtools REQUIRED)
-
 include(CetCMakeEnv)
-
-# uboonedata has no architecture dependence
 cet_cmake_env( noarch )
 
 # source code
+
 add_subdirectory(scripts)
 add_subdirectory(CRT)
 add_subdirectory(Calibration)
@@ -26,12 +23,11 @@ add_subdirectory(beamData)
 add_subdirectory(uboonebeam)
 add_subdirectory(searchingfornues)
 add_subdirectory(systematics)
-add_subdirectory(ups)
 add_subdirectory(genie)
 add_subdirectory(ParticleID)
 add_subdirectory(ppfx)
 add_subdirectory(SinglePhotonAnalysis)
+
 # packaging utility
-include(UseCPack)
 
-
+cet_cmake_config()

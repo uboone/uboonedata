@@ -4,4 +4,4 @@ FILE(GLOB data *.txt )
 
 message(STATUS "Data files ${data}")
 
-install(FILES ${data} DESTINATION ${product}/${version}/CRT)
+install(FILES ${data} DESTINATION CRT)

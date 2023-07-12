@@ -4,4 +4,4 @@ FILE(GLOB data *.root )
 
 message(STATUS "Data files ${data}")
 
-install(FILES ${data} DESTINATION ${product}/${version}/beamData/UnisimHists)
+install(FILES ${data} DESTINATION beamData/UnisimHists)

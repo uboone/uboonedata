@@ -6,4 +6,4 @@ LIST(APPEND data MCC9_channel_list.txt )
 
 message(STATUS "Data files ${data}")
 
-install(FILES ${data} DESTINATION ${product}/${version}/SinglePhotonAnalysis)
+install(FILES ${data} DESTINATION SinglePhotonAnalysis)

@@ -4,4 +4,4 @@ FILE(GLOB data *.root )
 
 message(STATUS "Data files ${data}")
 
-install(FILES ${data} DESTINATION ${product}/${version}/systematics/scc)
+install(FILES ${data} DESTINATION systematics/scc)
