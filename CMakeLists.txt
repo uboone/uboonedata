@@ -8,7 +8,7 @@ find_package(cetmodules REQUIRED)
 project(uboonedata VERSION 09.76.00 LANGUAGES NONE)
 
 include(CetCMakeEnv)
-cet_cmake_env( noarch )
+cet_cmake_env()
 
 # source code
 
