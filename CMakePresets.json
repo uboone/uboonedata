@@ -1,0 +1,80 @@
+{
+   "configurePresets" : [
+      {
+         "cacheVariables" : {
+            "uboonedata_ADD_NOARCH_DIRS_INIT" : {
+               "type" : "INTERNAL",
+               "value" : "WP_DIR;BIN_DIR"
+            },
+            "uboonedata_BIN_DIR_INIT" : {
+               "type" : "STRING",
+               "value" : "bin"
+            },
+            "uboonedata_FHICL_DIR_INIT" : {
+               "type" : "STRING",
+               "value" : ""
+            },
+            "uboonedata_FW_SEARCH_PATH_INIT" : {
+               "type" : "STRING",
+               "value" : ".;Response;Calibration;CRT;PandoraData;ppfx;SinglePhotonAnalysis"
+            },
+            "uboonedata_INCLUDE_DIR_INIT" : {
+               "type" : "STRING",
+               "value" : ""
+            },
+            "uboonedata_LIBRARY_DIR_INIT" : {
+               "type" : "STRING",
+               "value" : ""
+            },
+            "uboonedata_WP_DIR_INIT" : {
+               "type" : "STRING",
+               "value" : "WireCellData"
+            }
+         },
+         "description" : "Configuration settings translated from ups/product_deps",
+         "displayName" : "Configuration from product_deps",
+         "hidden" : true,
+         "name" : "from_product_deps"
+      },
+      {
+         "cacheVariables" : {
+            "WANT_UPS" : {
+               "type" : "BOOL",
+               "value" : true
+            },
+            "uboonedata_UPS_BUILD_ONLY_DEPENDENCIES_INIT" : {
+               "type" : "STRING",
+               "value" : "cetmodules"
+            },
+            "uboonedata_UPS_PRODUCT_FLAVOR_INIT" : {
+               "type" : "STRING",
+               "value" : "NULL"
+            },
+            "uboonedata_UPS_PRODUCT_NAME_INIT" : {
+               "type" : "STRING",
+               "value" : "uboonedata"
+            }
+         },
+         "description" : "Extra configuration for UPS package generation",
+         "displayName" : "UPS extra configuration",
+         "hidden" : true,
+         "name" : "extra_for_UPS"
+      },
+      {
+         "description" : "Default configuration including settings from ups/product_deps",
+         "displayName" : "Default configuration",
+         "inherits" : "from_product_deps",
+         "name" : "default"
+      },
+      {
+         "description" : "Default configuration for UPS package generation",
+         "displayName" : "Default configuration for UPS",
+         "inherits" : [
+            "default",
+            "extra_for_UPS"
+         ],
+         "name" : "for_UPS"
+      }
+   ],
+   "version" : 3
+}
