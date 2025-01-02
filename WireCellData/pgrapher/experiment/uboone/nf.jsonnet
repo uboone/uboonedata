@@ -63,7 +63,13 @@ function(params, tools, chndbobj, name="")
                 wc.tn(single)
             ],
             grouped_filters: [
-                wc.tn(grouped),
+                // wc.tn(grouped),
+            ],
+            multigroup_chanfilters: [
+                {
+                  channelgroups: chndbobj.data.groups,
+                  filters: [wc.tn(grouped)], 
+                }
             ],
             channel_status_filters: [
                 wc.tn(status),

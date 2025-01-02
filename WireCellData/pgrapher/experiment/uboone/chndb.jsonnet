@@ -47,6 +47,7 @@ function(params, tools)
         type: "wclsMultiChannelNoiseDB",
         name: name,
         data: {
+            groups: bef.data.groups,
             rules: [
                 {
                     rule: "runbefore",
