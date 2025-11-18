@@ -34,7 +34,7 @@ function(params, tools)
     local ubsigtags = ['ubsig%d'%n for n in [0,1,2]],
 
     local signal = g.pipeline([f.fanpipe('DepoFanout', pipelines, 'FrameFanin', 'ubsigraph', ubsigtags),
-                               sim.make_reframer('ubsigrf', tools.anode, ubsigtags)], 'ubsignal'),
+                               sim.make_reframer('ubsigrf', tools.anode)], 'ubsignal'),
 
 
     //
