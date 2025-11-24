@@ -1,6 +1,6 @@
 # searchingfornues Data files, required at runtime.
 
-FILE(GLOB data *.model )
+FILE(GLOB data *.model *.root )
 
 message(STATUS "Data files ${data}")
 
