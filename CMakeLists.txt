@@ -41,6 +41,7 @@ add_subdirectory(genie)
 add_subdirectory(ParticleID)
 add_subdirectory(ppfx)
 add_subdirectory(SinglePhotonAnalysis)
+add_subdirectory(Eventgenerator)
 # packaging utility
 include(UseCPack)
 
