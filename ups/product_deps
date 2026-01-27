@@ -2,7 +2,7 @@
 
 # The *parent* line must the first non-commented line and defines this product and version
 # The version should be of the form vxx_yy_zz (e.g. v01_02_03)
-parent uboonedata v08_00_00_93
+parent uboonedata v08_00_00_94
 
 # The no_fq_dir keyword indicates that this product is NULL flavored
 no_fq_dir
@@ -36,6 +36,7 @@ set_fwdir  product_dir  CRT
 set_fwdir  product_dir  PandoraData
 set_fwdir  product_dir  ppfx
 set_fwdir  product_dir  SinglePhotonAnalysis
+set_fwdir  product_dir  Eventgenerator/TwoBodyDecayGen
 
 # table fragment to set WIRECELL_PATH and GXMLPATH needed 
 # to find data files:
