@@ -28,6 +28,7 @@ add_subdirectory(ParticleID)
 add_subdirectory(ppfx)
 add_subdirectory(SinglePhotonAnalysis)
 add_subdirectory(NuGraph)
+add_subdirectory(Eventgenerator)
 
 # packaging utility
 
