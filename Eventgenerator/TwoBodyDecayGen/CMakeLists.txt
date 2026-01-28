@@ -4,4 +4,4 @@ FILE(GLOB data *.root )
 
 message(STATUS "Data files ${data}")
 
-install(FILES ${data} DESTINATION ${product}/${version}/Eventgenerator/TwoBodyDecayGen)
+install(FILES ${data} DESTINATION Eventgenerator/TwoBodyDecayGen)
