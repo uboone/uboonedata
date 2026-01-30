@@ -185,7 +185,7 @@ set_fwdir	product_dir	PandoraData
 set_fwdir	product_dir	ppfx
 set_fwdir	product_dir	SinglePhotonAnalysis
 set_fwdir	product_dir	searchingfornues
-set_fwdir	product_dir	Eventgenerator/TwoBodyDecayGen
+#set_fwdir	product_dir	Eventgenerator/TwoBodyDecayGen
 wpdir		product_dir	WireCellData
 ####################################
 
@@ -328,6 +328,7 @@ end_qualifier_list
 table_fragment_begin
     pathPrepend(WIRECELL_PATH, ${UPS_PROD_DIR}/WireCellData:${WIRECELL_FQ_DIR}/share/wirecell )
     pathPrepend(GXMLPATH, ${UBOONEDATA_DIR}/genie)
+    pathPrepend(FW_SEARCH_PATH, ${UPS_PROD_DIR}/Eventgenerator/TwoBodyDecayGen)
 table_fragment_end
 ####################################
 
